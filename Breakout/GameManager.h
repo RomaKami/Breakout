@@ -19,6 +19,7 @@ public:
     void render();
     void gameOver();
     void levelComplete();
+    void scoreCount();
     void powerupEffect(POWERUPS pu, float t);
 
     Paddle* getPaddle() const;
@@ -34,9 +35,13 @@ private:
     float _time;
     float _timeLastPowerupSpawned;
     int _lives;
+    int _bricksRemaining;
+    int _highScore;
     bool _gameOver;
     bool _levelComplete;
     std::pair<POWERUPS, float> _powerupInEffect;
+    std::string _bricksTotal;
+    std::string _scoreDisplay;
 
     sf::Font _font;
     sf::Text _masterText;

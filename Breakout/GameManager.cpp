@@ -2,6 +2,9 @@
 #include "Ball.h"
 #include "PowerupManager.h"
 #include <iostream>
+#include <string>
+#include <vector>
+#include <sstream>
 
 GameManager::GameManager(sf::RenderWindow* window)
     : _window(window), _paddle(nullptr), _ball(nullptr), _brickManager(nullptr), _powerupManager(nullptr),
@@ -11,7 +14,7 @@ GameManager::GameManager(sf::RenderWindow* window)
     _font.loadFromFile("font/montS.ttf");
     _masterText.setFont(_font);
     _masterText.setPosition(50, 400);
-    _masterText.setCharacterSize(48);
+    _masterText.setCharacterSize(36);
     _masterText.setFillColor(sf::Color::Yellow);
 }
 
@@ -44,7 +47,8 @@ void GameManager::update(float dt)
     if (_lives <= 0)
     {
         _gameOver = true;
-        _masterText.setString("Game over.");
+        scoreCount();
+        _masterText.setString("Game over | Bricks left: " + _bricksTotal + " | High score: " + _scoreDisplay + ".");
         
     }
     if (_gameOver)
@@ -59,6 +63,7 @@ void GameManager::update(float dt)
     }
     if (_levelComplete)
     {
+        scoreCount();
         _masterText.setString("Level completed.");
         return;
     }
@@ -124,12 +129,24 @@ void GameManager::render()
 
 void GameManager::gameOver()
 {
-    _gameOver = false;
+    _gameOver = true;
 }
 
 void GameManager::levelComplete()
 {
     _levelComplete = true;
+}
+
+void GameManager::scoreCount()
+{
+    // Getting bricks still remaining
+    _bricksRemaining = (_brickManager->getBricks()).size();
+    int _bricksDestroyed = 50 - _bricksRemaining;
+    if (_bricksDestroyed > _highScore) {
+        _highScore = _bricksDestroyed;
+    }
+    _bricksTotal = std::to_string(_bricksRemaining);
+    _scoreDisplay = std::to_string(_highScore);
 }
 
 sf::RenderWindow* GameManager::getWindow() const { return _window; }
