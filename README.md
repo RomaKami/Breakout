@@ -34,6 +34,7 @@ You are to spend between three and eight hours improving this simple Breakout im
 _TO DO_
 
 <Add information to this section about the time you've taken for this task along with a professional changelist.>
+-Game can be restarted after game over. Time taken: 15 minutes.
 
 ---
 

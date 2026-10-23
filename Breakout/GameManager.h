@@ -17,6 +17,7 @@ public:
     void update(float dt);
     void loseLife();
     void render();
+    void gameOver();
     void levelComplete();
     void powerupEffect(POWERUPS pu, float t);
 
@@ -33,6 +34,7 @@ private:
     float _time;
     float _timeLastPowerupSpawned;
     int _lives;
+    bool _gameOver;
     bool _levelComplete;
     std::pair<POWERUPS, float> _powerupInEffect;
 
