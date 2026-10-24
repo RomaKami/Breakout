@@ -34,8 +34,10 @@ You are to spend between three and eight hours improving this simple Breakout im
 
 <Add information to this section about the time you've taken for this task along with a professional changelist.>
 
-+Game can be restarted after game over. Time taken: 15 minutes.
-+Game over stats, including number of bricks remaining, and highest number of bricks broken across all playthroughs. Time taken: 13 minutes.
+* Game can be restarted after game over. Time taken: 15 minutes.
+* Game over stats, including number of bricks remaining, and highest number of bricks broken across all playthroughs. Time taken: 13 minutes.
+* Progress bar that ticks down based on current power-up. Time taken: 38 minutes.
+* UI text colour and size redone for consistency. Time taken: 2 minutes.
 
 ---
 

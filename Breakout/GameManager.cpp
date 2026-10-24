@@ -15,7 +15,7 @@ GameManager::GameManager(sf::RenderWindow* window)
     _masterText.setFont(_font);
     _masterText.setPosition(50, 400);
     _masterText.setCharacterSize(36);
-    _masterText.setFillColor(sf::Color::Yellow);
+    _masterText.setFillColor(sf::Color::Cyan);
 }
 
 void GameManager::initialize()
@@ -48,7 +48,7 @@ void GameManager::update(float dt)
     {
         _gameOver = true;
         scoreCount();
-        _masterText.setString("Game over | Bricks left: " + _bricksTotal + " | High score: " + _scoreDisplay + ".");
+        _masterText.setString("GAME OVER | BRICKS LEFT: " + _bricksTotal + " | HIGH SCORE: " + _scoreDisplay);
         
     }
     if (_gameOver)
@@ -64,9 +64,10 @@ void GameManager::update(float dt)
     if (_levelComplete)
     {
         scoreCount();
-        _masterText.setString("Level completed.");
+        _masterText.setString("LEVEL COMPLETED");
         return;
     }
+
     // pause and pause handling
     if (_pauseHold > 0.f) _pauseHold -= dt;
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::P))
@@ -74,7 +75,7 @@ void GameManager::update(float dt)
         if (!_pause && _pauseHold <= 0.f)
         {
             _pause = true;
-            _masterText.setString("paused.");
+            _masterText.setString("PAUSED");
             _pauseHold = PAUSE_TIME_BUFFER;
         }
         if (_pause && _pauseHold <= 0.f)
@@ -91,7 +92,6 @@ void GameManager::update(float dt)
 
     // timer.
     _time += dt;
-
 
     if (_time > _timeLastPowerupSpawned + POWERUP_FREQUENCY && rand()%700 == 0)      // TODO parameterise
     {
