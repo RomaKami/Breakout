@@ -1,14 +1,13 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 #include "CONSTANTS.h"
+#include "CameraManager.h"
 #include "Paddle.h"
 #include "Ball.h"
 #include "BrickManager.h"
 #include "PowerupManager.h"
 #include "MessagingSystem.h"
 #include "UI.h"
-
-
 
 class GameManager {
 public:
@@ -39,6 +38,7 @@ private:
     int _highScore;
     bool _gameOver;
     bool _levelComplete;
+    bool _lifeLost;
     std::pair<POWERUPS, float> _powerupInEffect;
     std::string _bricksTotal;
     std::string _scoreDisplay;
@@ -47,6 +47,7 @@ private:
     sf::Text _masterText;
 
     sf::RenderWindow* _window;
+    CameraManager* _cameraManager;
     Paddle* _paddle;
     Ball* _ball;
     BrickManager* _brickManager;

@@ -26,6 +26,7 @@ void GameManager::initialize()
     // Set lives on game start
     _lives = 3;
 
+    _cameraManager = new CameraManager(_window);
     _paddle = new Paddle(_window);
     _brickManager = new BrickManager(_window, this);
     _messagingSystem = new MessagingSystem(_window);
@@ -47,6 +48,7 @@ void GameManager::update(float dt)
     if (_lives <= 0)
     {
         _gameOver = true;
+        _lifeLost = false; // This check is mainly here so the screen doesn't shake on restart
         scoreCount();
         _masterText.setString("GAME OVER | BRICKS LEFT: " + _bricksTotal + " | HIGH SCORE: " + _scoreDisplay);
         
@@ -65,6 +67,12 @@ void GameManager::update(float dt)
     {
         scoreCount();
         _masterText.setString("LEVEL COMPLETED");
+        return;
+    }
+
+    if (_lifeLost) {
+        _cameraManager->screenShake(0.2f, 1000.f);
+        _lifeLost = false;
         return;
     }
 
@@ -103,9 +111,10 @@ void GameManager::update(float dt)
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) _paddle->moveRight(dt);
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)) _paddle->moveLeft(dt);
 
-    // update everything 
-    _paddle->update(dt);
+    // update everything
+    _cameraManager->update(dt);
     _ball->update(dt);
+    _paddle->update(dt);
     _powerupManager->update(dt);
 }
 
@@ -114,13 +123,15 @@ void GameManager::loseLife()
     _lives--;
     _ui->lifeLost(_lives);
 
-    // TODO screen shake.
+    _lifeLost = true;
 }
 
 void GameManager::render()
 {
+    if (!_gameOver) { // Quick fix to prevent ball from appearing on game over
+        _ball->render();
+    }
     _paddle->render();
-    _ball->render();
     _brickManager->render();
     _powerupManager->render();
     _window->draw(_masterText);
