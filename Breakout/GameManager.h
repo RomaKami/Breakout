@@ -14,8 +14,9 @@ public:
     GameManager(sf::RenderWindow* window);
     void initialize();
     void update(float dt);
-    void loseLife();
     void render();
+    void loseLife();
+    void gainLife();
     void gameOver();
     void levelComplete();
     void scoreCount();

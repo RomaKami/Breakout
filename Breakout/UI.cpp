@@ -85,6 +85,11 @@ void UI::lifeLost(int lives)
 	_lives[_lives.size() - 1 - lives].setFillColor(sf::Color::Transparent);
 }
 
+void UI::lifeGained(int lives)
+{
+	_lives[_lives.size() - 1 - lives].setFillColor(sf::Color::Red);
+}
+
 void UI::render()
 {
 	_window->draw(_emptyProgressbar);

@@ -43,7 +43,6 @@ void GameManager::update(float dt)
     _powerupInEffect = _powerupManager->getPowerupInEffect();
     _ui->updatePowerupText(_powerupInEffect);
     _powerupInEffect.second -= dt;
-    
 
     if (_lives <= 0)
     {
@@ -67,6 +66,11 @@ void GameManager::update(float dt)
     {
         scoreCount();
         _masterText.setString("LEVEL COMPLETED");
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::R))
+        {
+            initialize();
+            _levelComplete = false;
+        }
         return;
     }
 
@@ -101,7 +105,7 @@ void GameManager::update(float dt)
     // timer.
     _time += dt;
 
-    if (_time > _timeLastPowerupSpawned + POWERUP_FREQUENCY && rand()%700 == 0)      // TODO parameterise
+    if (_time > _timeLastPowerupSpawned + POWERUP_FREQUENCY && rand() % 700 == 0)      // TODO parameterise
     {
         _powerupManager->spawnPowerup();
         _timeLastPowerupSpawned = _time;
@@ -124,6 +128,14 @@ void GameManager::loseLife()
     _ui->lifeLost(_lives);
 
     _lifeLost = true;
+}
+
+void GameManager::gainLife()
+{
+    if (_lives < 3) {
+        _ui->lifeGained(_lives);
+        _lives++;
+    }
 }
 
 void GameManager::render()
