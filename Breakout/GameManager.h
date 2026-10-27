@@ -20,6 +20,7 @@ public:
     void gameOver();
     void levelComplete();
     void scoreCount();
+    void multiBall(bool value);
     void powerupEffect(POWERUPS pu, float t);
 
     Paddle* getPaddle() const;
@@ -40,6 +41,7 @@ private:
     bool _gameOver;
     bool _levelComplete;
     bool _lifeLost;
+    bool _isMultiBall;
     std::pair<POWERUPS, float> _powerupInEffect;
     std::string _bricksTotal;
     std::string _scoreDisplay;
@@ -51,6 +53,7 @@ private:
     CameraManager* _cameraManager;
     Paddle* _paddle;
     Ball* _ball;
+    Ball* _extraBalls[3];
     BrickManager* _brickManager;
     PowerupManager* _powerupManager;
     MessagingSystem* _messagingSystem;

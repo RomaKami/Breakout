@@ -9,6 +9,7 @@ enum POWERUPS
     slowBall,
     fireBall,
     healthBall,
+    multiBall,
     none
 };
 

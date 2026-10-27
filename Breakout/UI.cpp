@@ -74,6 +74,11 @@ void UI::updatePowerupText(std::pair<POWERUPS, float> powerup)
 		_powerupProgressbar.setFillColor(extraBallEffectsColour);
 		_powerupProgressbar.setSize(sf::Vector2f(powerup.second * 45.0f, 30.0f));
 		break;
+	case multiBall:
+		_powerupText.setString("MULTI");
+		_powerupProgressbar.setFillColor(ballEffectsColour);
+		_powerupProgressbar.setSize(sf::Vector2f(powerup.second * 45.0f, 30.0f));
+		break;
 	case none:
 		_powerupText.setString("");
 		break;

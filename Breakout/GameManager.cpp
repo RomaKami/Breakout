@@ -30,7 +30,7 @@ void GameManager::initialize()
     _paddle = new Paddle(_window);
     _brickManager = new BrickManager(_window, this);
     _messagingSystem = new MessagingSystem(_window);
-    _ball = new Ball(_window, 400.0f, this); 
+    _ball = new Ball(_window, 400.0f, false, this); 
     _powerupManager = new PowerupManager(_window, _paddle, _ball);
     _ui = new UI(_window, _lives, this);
 
@@ -112,14 +112,23 @@ void GameManager::update(float dt)
     }
 
     // move paddle
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) _paddle->moveRight(dt);
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)) _paddle->moveLeft(dt);
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::D) || sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) _paddle->moveRight(dt);
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::A) || sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) _paddle->moveLeft(dt);
 
     // update everything
     _cameraManager->update(dt);
     _ball->update(dt);
     _paddle->update(dt);
     _powerupManager->update(dt);
+
+    if (_isMultiBall)
+    {
+        for (int i = 0; i < 3; i++)
+        {
+            _extraBalls[i]->update(dt);
+        }
+    }
+    
 }
 
 void GameManager::loseLife()
@@ -140,14 +149,36 @@ void GameManager::gainLife()
 
 void GameManager::render()
 {
-    if (!_gameOver) { // Quick fix to prevent ball from appearing on game over
+    if (!_gameOver) { // Quick fix to prevent any balls from appearing on game over
         _ball->render();
+
+        if (_isMultiBall)
+        {
+            for (int i = 0; i < 3; i++)
+            {
+                _extraBalls[i]->render();
+            }
+        }
     }
     _paddle->render();
     _brickManager->render();
     _powerupManager->render();
     _window->draw(_masterText);
     _ui->render();
+}
+
+void GameManager::multiBall(bool value)
+{
+    _isMultiBall = value;
+
+    if (_isMultiBall)
+    {
+        for (int i = 0; i < 3; i++)
+        {
+            _extraBalls[i] = new Ball(_window, 400.0f, true, this);
+        }
+    }
+
 }
 
 void GameManager::gameOver()

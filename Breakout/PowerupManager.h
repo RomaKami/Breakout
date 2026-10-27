@@ -11,9 +11,9 @@
 #include "PowerupFastBall.h"
 #include "PowerupFireBall.h"
 #include "PowerupHealthBall.h"
+#include "PowerupMultiBall.h"
 #include "Paddle.h"
 #include "Ball.h"
-
 
 class PowerupManager
 {
